@@ -12,7 +12,7 @@ following example.
 
 The configuration goes in the plugins/DiscordChat folder, named config.yml.
 
-´´´yml
+```yml
 discord-email: 'Your Discord email'
 discord-password: 'Your Discord password'
 
@@ -21,7 +21,7 @@ channels:
     tag: Tag # Tag to show on Minecraft chat
     discord-listen: true # Enable Discord -> Minecraft connection
     minecraft-listen: true # Enable Minecraft -> Discord connection
-´´´
+```
 
 ## Commands and permission nodes
 
