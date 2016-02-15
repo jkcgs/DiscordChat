@@ -1,0 +1,4 @@
+name: DiscordChat
+version: 0.1.0
+author: Makzk <me@makzk.com>
+main: com.makzk.spigot.discordchat.DiscordChat

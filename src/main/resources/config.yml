@@ -1,0 +1,8 @@
+discord-email: ''
+discord-password: ''
+
+channels:
+  channel-id:
+    tag: Tag # Tag to show on Minecraft chat
+    discord-listen: true # Listen Discord -> Minecraft
+    minecraft-listen: true # Listen Minecraft -> Discord
