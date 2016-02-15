@@ -25,7 +25,7 @@ public class ClientWrapper {
         FileConfiguration config = plugin.getConfig();
 
         if(config.getString("discord-email").isEmpty() || config.getString("discord-password").isEmpty()) {
-            throw new DiscordPluginException("Set Discord email and password before using this plugin.");
+            throw new DiscordPluginException(plugin.lang("error-login-config"));
         }
 
         // Create ClientBuilder, which returns the client to interact with the Discord uAPI

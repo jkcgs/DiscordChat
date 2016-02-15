@@ -16,11 +16,11 @@ public class DiscordListener {
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { //This method is called when the ReadyEvent is dispatched
-        plugin.getLogger().info("Ready!");
+        plugin.getLogger().info(plugin.lang("ready"));
     }
 
     @EventSubscriber
-    public void onMessageReceivedEvent(MessageReceivedEvent event) { //This method is NOT called because it doesn't have the @EventSubscriber annotation
+    public void onMessageReceivedEvent(MessageReceivedEvent event) {
         IMessage m = event.getMessage();
         ChannelConfig cc = wrapper.getChannel(m.getChannel().getID());
 

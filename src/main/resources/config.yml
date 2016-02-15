@@ -1,5 +1,6 @@
 discord-email: ''
 discord-password: ''
+lang: en
 
 channels:
   channel-id:

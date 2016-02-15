@@ -39,10 +39,10 @@ public class DiscordSendMessageTask implements Runnable {
 
             try {
                 if(event instanceof PlayerJoinEvent) {
-                    iChannel.sendMessage(((PlayerJoinEvent) event).getPlayer().getName() + " has logged in to the server.");
+                    iChannel.sendMessage(plugin.lang("discord-player-login", ((PlayerJoinEvent) event).getPlayer().getName()));
                 }
                 if(event instanceof PlayerQuitEvent) {
-                    iChannel.sendMessage(((PlayerQuitEvent) event).getPlayer().getName() + " has logged out from the server.");
+                    iChannel.sendMessage(plugin.lang("discord-player-logout", ((PlayerQuitEvent) event).getPlayer().getName()));
                 }
 
                 if(event instanceof AsyncPlayerChatEvent) {
@@ -51,9 +51,9 @@ public class DiscordSendMessageTask implements Runnable {
                 }
 
             } catch (MissingPermissionsException e) {
-                plugin.getLogger().severe("Could not send message to Discord because missing permission");
+                plugin.getLogger().severe(plugin.lang("error-discord-missing-perm"));
             } catch (HTTP429Exception | DiscordException e) {
-                plugin.getLogger().severe("Could not send message to Discord: " + e.getMessage());
+                plugin.getLogger().severe(plugin.lang("error-discord-send-msg", e.getMessage()));
             }
         }
     }

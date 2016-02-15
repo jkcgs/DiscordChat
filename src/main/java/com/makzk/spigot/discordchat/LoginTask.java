@@ -14,12 +14,12 @@ class LoginTask implements Runnable {
             plugin.getWrapper().login();
 
             if(!plugin.getWrapper().isConnected()) {
-                throw new DiscordException("No further information given");
+                throw new DiscordException(plugin.lang("error-no-further-info"));
             } else {
-                plugin.getLogger().info("Successfully connected to Discord");
+                plugin.getLogger().info(plugin.lang("discord-logged"));
             }
         } catch (DiscordException e) {
-            plugin.getLogger().severe("Could not login to Discord: " + e.getMessage());
+            plugin.getLogger().severe(plugin.lang("error-discord-login", e.getMessage()));
         }
     }
 }
