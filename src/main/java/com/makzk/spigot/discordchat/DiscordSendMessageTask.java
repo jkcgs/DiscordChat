@@ -47,7 +47,10 @@ public class DiscordSendMessageTask implements Runnable {
 
                 if(event instanceof AsyncPlayerChatEvent) {
                     AsyncPlayerChatEvent e = (AsyncPlayerChatEvent) event;
-                    iChannel.sendMessage(e.getPlayer().getName() + ": " + e.getMessage());
+                    if(e.getRecipients().size() != plugin.getServer().getOnlinePlayers().size()) {
+                        iChannel.sendMessage(e.getPlayer().getName() + ": " + e.getMessage());
+                    }
+
                 }
 
             } catch (MissingPermissionsException e) {
