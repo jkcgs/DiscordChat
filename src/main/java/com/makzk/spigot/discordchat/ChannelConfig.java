@@ -1,5 +1,8 @@
 package com.makzk.spigot.discordchat;
 
+/**
+ * Object that represents an Channel from the configuration
+ */
 public class ChannelConfig {
     private String id;
     private String tag;

@@ -9,6 +9,9 @@ import sx.blah.discord.api.IDiscordClient;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Connects to Discord with the Discord4J client
+ */
 public class ClientWrapper {
     private IDiscordClient client = null;
     private DiscordListener listener = null;
