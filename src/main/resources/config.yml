@@ -1,7 +1,7 @@
 discord-email: ''
 discord-password: ''
 lang: en
-filter-different-recipients: true
+filter-factionchat: true
 
 channels:
   channel-id:

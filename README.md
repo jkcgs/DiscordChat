@@ -16,7 +16,7 @@ The configuration goes in the plugins/DiscordChat folder, named config.yml.
 discord-email: 'Your Discord email'
 discord-password: 'Your Discord password'
 lang: en # Switch between available languages
-filter-different-recipients: true # Toggles display of messages not sent to all (e.g., FactionChat)
+filter-factionchat: true # Toggles display of messages sent via FactionChat plugin
 
 channels:
   channel-id: # The channel ID obtainable from the URL (e.g.: https://discordapp.com/channels/{server-id}/{channel-id}
@@ -24,6 +24,9 @@ channels:
     discord-listen: true # Enable Discord -> Minecraft connection
     minecraft-listen: true # Enable Minecraft -> Discord connection
 ```
+
+Note: This plugins links to FactionChat plugin. If you decide to show the messages sent with this plugin, they will
+show as "[faction_name chat_mode] player_name: message"
 
 ## Commands and permission nodes
 

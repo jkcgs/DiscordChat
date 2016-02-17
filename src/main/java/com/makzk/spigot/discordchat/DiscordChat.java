@@ -11,6 +11,8 @@ public class DiscordChat extends JavaPlugin {
     private PluginFile langConfig = null;
     private ClientWrapper wrapper = null;
 
+    private boolean factionChatEnabled = false;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -32,6 +34,11 @@ public class DiscordChat extends JavaPlugin {
             getLogger().warning("WrapperInit: " + e.getMessage());
             unloadPlugin();
             return;
+        }
+
+        if(getServer().getPluginManager().isPluginEnabled("FactionChat")) {
+            factionChatEnabled = true;
+            getLogger().info("Linked to FactionChat API!");
         }
 
         getServer().getScheduler().runTaskAsynchronously(this, new LoginTask(this));
@@ -62,6 +69,10 @@ public class DiscordChat extends JavaPlugin {
 
     public ClientWrapper getWrapper() {
         return wrapper;
+    }
+
+    public boolean isFactionChatEnabled() {
+        return factionChatEnabled;
     }
 
     public static DiscordChat getInstance() {

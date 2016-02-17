@@ -6,7 +6,7 @@
 
     <groupId>com.makzk.spigot</groupId>
     <artifactId>DiscordChat</artifactId>
-    <version>0.2.0-beta</version>
+    <version>0.3.0-beta</version>
 
     <build>
         <finalName>DiscordChat</finalName>
@@ -95,6 +95,14 @@
             <artifactId>slf4j-nop</artifactId>
             <version>1.7.13</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>nz.co.lolnet.james137137</groupId>
+            <artifactId>factionchat</artifactId>
+            <version>1.9.15</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/FactionChat.jar</systemPath>
         </dependency>
     </dependencies>
     

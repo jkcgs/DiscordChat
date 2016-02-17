@@ -125,7 +125,12 @@ public class ClientWrapper {
         }
     }
 
-    public void channelBroadcast(String msg) {
+    /**
+     * Broadcasts a message to the channels
+     * @param msg The message to broadcast
+     * @param listenMinecraft Send message only to Minecraft-listen-enabled channels
+     */
+    public void channelBroadcast(String msg, boolean listenMinecraft) {
         if(!connected) return;
 
         for (Map.Entry<String, ChannelConfig> entry : channels.entrySet()) {
@@ -133,14 +138,26 @@ public class ClientWrapper {
             IChannel chan = client.getChannelByID(c.getId());
             if(chan == null) continue;
 
+            // Broadcast only if channel listens to Minecraft messages, if the flag is enabled
+            if(listenMinecraft && !c.isMinecraftListen()) {
+                continue;
+            }
+
             try {
                 chan.sendMessage(msg);
             } catch (MissingPermissionsException e) {
                 plugin.getLogger().warning(plugin.lang("error-discord-broad-perm", chan.getName()));
             } catch (HTTP429Exception | DiscordException e) {
                 plugin.getLogger().warning(plugin.lang("error-discord-broad", chan.getName(), e.getMessage()));
+            } catch (Exception e) {
+                plugin.getLogger().severe(plugin.lang("error-discord-unknown",
+                        e.getClass().getName() + ": " + e.getMessage()));
             }
         }
+    }
+
+    public void channelBroadcast(String msg) {
+        channelBroadcast(msg, false);
     }
 
     public boolean isConnected() {
