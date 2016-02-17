@@ -1,7 +1,8 @@
 package com.makzk.spigot.discordchat;
 
-import sx.blah.discord.api.DiscordException;
-
+/**
+ * Async task to login to the Discord services
+ */
 class LoginTask implements Runnable {
     DiscordChat plugin = null;
 
@@ -10,16 +11,10 @@ class LoginTask implements Runnable {
     }
 
     public void run() {
-        try {
-            plugin.getWrapper().login();
-
-            if(!plugin.getWrapper().isConnected()) {
-                throw new DiscordException(plugin.lang("error-no-further-info"));
-            } else {
-                plugin.getLogger().info(plugin.lang("discord-logged"));
-            }
-        } catch (DiscordException e) {
-            plugin.getLogger().severe(plugin.lang("error-discord-login", e.getMessage()));
+        if(!plugin.getWrapper().init(true) || !plugin.getWrapper().isConnected()) {
+            plugin.getLogger().severe(plugin.lang("error-discord-login", plugin.lang("error-no-further-info")));
+        } else {
+            plugin.getLogger().info(plugin.lang("discord-logged"));
         }
     }
 }

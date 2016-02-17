@@ -1,6 +1,5 @@
 package com.makzk.spigot.discordchat;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,12 +47,9 @@ public class PluginFile extends YamlConfiguration {
     public void reload() {
 
         if (!file.exists()) {
-
             try {
-                if(!file.getParentFile().mkdirs() || !file.createNewFile()) {
-                    throw new IOException("No further information");
-                }
-
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             } catch (IOException exception) {
                 exception.printStackTrace();
                 plugin.getLogger().severe("Error while creating file " + file.getName());

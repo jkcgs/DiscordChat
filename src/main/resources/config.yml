@@ -1,6 +1,7 @@
 discord-email: ''
 discord-password: ''
 lang: en
+filter-different-recipients: true
 
 channels:
   channel-id:

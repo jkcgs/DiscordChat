@@ -1,4 +1,15 @@
 name: DiscordChat
-version: 0.1.0
+version: 0.2.0-SNAPSHOT
 author: Makzk <me@makzk.com>
 main: com.makzk.spigot.discordchat.DiscordChat
+commands:
+  dcreload:
+    description: Reloads the DiscordChat configuration
+    aliases: [dcr]
+    permission: discordchat.reload
+    usage:
+      /<command>
+permissions:
+  discordchat.reload:
+    description: Gives permission to reload the plugin configuration
+    default: op

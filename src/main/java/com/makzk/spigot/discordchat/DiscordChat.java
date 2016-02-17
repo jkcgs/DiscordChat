@@ -5,12 +5,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 import sx.blah.discord.api.DiscordException;
 
 public class DiscordChat extends JavaPlugin {
+    private static DiscordChat instance;
+
     private FileConfiguration f = getConfig();
     private PluginFile langConfig = null;
     private ClientWrapper wrapper = null;
 
     @Override
     public void onEnable() {
+        instance = this;
+
         f.options().copyDefaults(true);
         saveConfig();
 
@@ -23,7 +27,7 @@ public class DiscordChat extends JavaPlugin {
         langConfig = new PluginFile(this, langName, langName);
 
         try {
-            wrapper = new ClientWrapper(this);
+            wrapper = new ClientWrapper();
         } catch (DiscordPluginException | DiscordException e) {
             getLogger().warning("WrapperInit: " + e.getMessage());
             unloadPlugin();
@@ -32,12 +36,13 @@ public class DiscordChat extends JavaPlugin {
 
         getServer().getScheduler().runTaskAsynchronously(this, new LoginTask(this));
         getServer().getPluginManager().registerEvents(new MinecraftListener(this, wrapper), this);
+        getCommand("dcreload").setExecutor(new DiscordChatCommand());
     }
 
     @Override
     public void onDisable() {
         if(wrapper != null) {
-            wrapper.unload();
+            wrapper.unload(false);
         }
 
         getLogger().info(langConfig.getString("plugin-disabled"));
@@ -57,5 +62,9 @@ public class DiscordChat extends JavaPlugin {
 
     public ClientWrapper getWrapper() {
         return wrapper;
+    }
+
+    public static DiscordChat getInstance() {
+        return instance;
     }
 }
