@@ -28,3 +28,9 @@ channels:
 ## Commands and permission nodes
 
 * /dcreload (/dcr): Reloads the plugin configuration - discordbot.reload (default: op)
+
+## Languages and translations
+
+You can switch between available languages. Actually, English (en) and Spanish.
+You can use custom languages, by putting a file like "lang_{lang}.yml" in plugin folder, and set the "{lang}" in
+the config. Use the file [lang.yml](src/main/resources/lang.yml) as base.
