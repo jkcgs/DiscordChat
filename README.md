@@ -15,6 +15,8 @@ The configuration goes in the plugins/DiscordChat folder, named config.yml.
 ```yml
 discord-email: 'Your Discord email'
 discord-password: 'Your Discord password'
+lang: en # Switch between available languages
+filter-different-recipients: true # Toggles display of messages not sent to all (e.g., FactionChat)
 
 channels:
   channel-id: # The channel ID obtainable from the URL (e.g.: https://discordapp.com/channels/{server-id}/{channel-id}
@@ -25,4 +27,4 @@ channels:
 
 ## Commands and permission nodes
 
-There are no commands and permissions required at the moment.
+* /dcreload (/dcr): Reloads the plugin configuration - discordbot.reload (default: op)
