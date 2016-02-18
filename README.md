@@ -37,3 +37,7 @@ show as "[faction_name chat_mode] player_name: message"
 You can switch between available languages. Actually, English (en) and Spanish.
 You can use custom languages, by putting a file like "lang_{lang}.yml" in plugin folder, and set the "{lang}" in
 the config. Use the file [lang.yml](src/main/resources/lang.yml) as base.
+
+## License
+
+This proyect is under the [MIT License](LICENSE)
