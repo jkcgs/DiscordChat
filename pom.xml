@@ -58,6 +58,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <finalName>${project.artifactId}-${project.version}-all</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
