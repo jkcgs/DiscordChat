@@ -6,7 +6,20 @@
 
     <groupId>com.makzk.spigot</groupId>
     <artifactId>DiscordChat</artifactId>
-    <version>0.3.0-beta</version>
+    <version>0.4.0-beta</version>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/jkcgs/DiscordChat/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/jkcgs/DiscordChat.git</connection>
+        <developerConnection>scm:git:https://github.com/jkcgs/DiscordChat.git</developerConnection>
+        <url>https://github.com/jkcgs/DiscordChat</url>
+    </scm>
 
     <build>
         <finalName>DiscordChat</finalName>
@@ -63,6 +76,12 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
+
+        <repository>
+            <id>ess-repo</id>
+            <url>http://repo.ess3.net/content/groups/essentials</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -87,6 +106,20 @@
             <artifactId>bukkit</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.ess3</groupId>
+            <artifactId>Essentials</artifactId>
+            <version>2.13-SNAPSHOT</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.spigotmc</groupId>
+                    <artifactId>spigot-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
         </dependency>
 
         <!-- Mute for Discord4J -->

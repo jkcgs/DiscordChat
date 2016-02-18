@@ -2,6 +2,7 @@ discord-email: ''
 discord-password: ''
 lang: en
 filter-factionchat: true
+filter-essmute: true
 
 channels:
   channel-id:

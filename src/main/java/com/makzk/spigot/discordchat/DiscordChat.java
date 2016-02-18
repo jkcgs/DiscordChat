@@ -12,6 +12,7 @@ public class DiscordChat extends JavaPlugin {
     private ClientWrapper wrapper = null;
 
     private boolean factionChatEnabled = false;
+    private boolean essEnabled = false;
 
     @Override
     public void onEnable() {
@@ -38,7 +39,11 @@ public class DiscordChat extends JavaPlugin {
 
         if(getServer().getPluginManager().isPluginEnabled("FactionChat")) {
             factionChatEnabled = true;
-            getLogger().info("Linked to FactionChat API!");
+            getLogger().info("Linked to FactionChat!");
+        }
+        if(getServer().getPluginManager().isPluginEnabled("Essentials")) {
+            essEnabled = true;
+            getLogger().info("Linked to Essentials!");
         }
 
         getServer().getScheduler().runTaskAsynchronously(this, new LoginTask(this));
@@ -73,6 +78,10 @@ public class DiscordChat extends JavaPlugin {
 
     public boolean isFactionChatEnabled() {
         return factionChatEnabled;
+    }
+
+    public boolean isEssEnabled() {
+        return essEnabled;
     }
 
     public static DiscordChat getInstance() {

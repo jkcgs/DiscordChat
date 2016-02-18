@@ -3,7 +3,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.makzk.spigot</groupId>
   <artifactId>DiscordChat</artifactId>
-  <version>0.2.0-beta</version>
+  <version>0.4.0-beta</version>
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://github.com/jkcgs/DiscordChat/blob/master/LICENSE</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https://github.com/jkcgs/DiscordChat.git</connection>
+    <developerConnection>scm:git:https://github.com/jkcgs/DiscordChat.git</developerConnection>
+    <url>https://github.com/jkcgs/DiscordChat</url>
+  </scm>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
@@ -52,6 +63,10 @@
     <repository>
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <id>ess-repo</id>
+      <url>http://repo.ess3.net/content/groups/essentials</url>
     </repository>
   </repositories>
   <dependencies>
@@ -114,6 +129,19 @@
           <groupId>org.yaml</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.ess3</groupId>
+      <artifactId>Essentials</artifactId>
+      <version>2.13-SNAPSHOT</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>spigot-api</artifactId>
+          <groupId>org.spigotmc</groupId>
+        </exclusion>
+      </exclusions>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>nz.co.lolnet.james137137</groupId>

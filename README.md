@@ -17,6 +17,7 @@ discord-email: 'Your Discord email'
 discord-password: 'Your Discord password'
 lang: en # Switch between available languages
 filter-factionchat: true # Toggles display of messages sent via FactionChat plugin
+filter-essmute: true # Toggles display of messages sent by Essentials-muted players
 
 channels:
   channel-id: # The channel ID obtainable from the URL (e.g.: https://discordapp.com/channels/{server-id}/{channel-id}

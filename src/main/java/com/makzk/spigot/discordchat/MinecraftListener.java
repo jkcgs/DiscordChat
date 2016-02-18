@@ -1,6 +1,8 @@
 package com.makzk.spigot.discordchat;
 
 import nz.co.lolnet.james137137.FactionChat.FactionChatAPI;
+import com.earth2me.essentials.Essentials;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -84,6 +86,18 @@ class DiscordSendMessageTask implements Runnable {
                     String fName = FactionChatAPI.getFactionName(e.getPlayer());
                     String fChatMode = FactionChatAPI.getChatMode(e.getPlayer());
                     msg = String.format("[%s %s] %s", fName, fChatMode, msg);
+                }
+            }
+
+            // Handle muted players
+            if(!cancelled && plugin.isEssEnabled()) {
+                Essentials ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
+                if(ess.getUser(e.getPlayer().getName()).isMuted()) {
+                    if(plugin.getConfig().getBoolean("filter-essmute")) {
+                        cancelled = true;
+                    } else {
+                        msg = "[" + plugin.lang("muted") + "] " + msg;
+                    }
                 }
             }
 

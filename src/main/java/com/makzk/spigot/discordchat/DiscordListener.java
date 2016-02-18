@@ -27,6 +27,7 @@ public class DiscordListener {
         URL ipAddress;
         String ip = plugin.lang("some-server");
         try {
+            // This URL returns the external IP of the 'request' client
             ipAddress = new URL("http://myexternalip.com/raw");
             BufferedReader in = new BufferedReader(new InputStreamReader(ipAddress.openStream()));
             ip = in.readLine();
