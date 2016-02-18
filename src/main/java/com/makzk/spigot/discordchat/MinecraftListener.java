@@ -75,10 +75,7 @@ class DiscordSendMessageTask implements Runnable {
             boolean filterFaction = plugin.getConfig().getBoolean("filter-factionchat") && plugin.isFactionChatEnabled();
 
             String msg = e.getMessage();
-            msg = msg.replace("*", "*****"); // Escape '*' (workaround)
-            msg = msg.replace("_", "_____"); // Escape '_' (yet another workaround)
-            msg = msg.replace("`", "'"); // Escape ` as it's parsed by Discord, like previous characters
-            msg = "**" + e.getPlayer().getName() + "**: " + msg;
+            msg = "**" + DiscordChat.escape(e.getPlayer().getName()) + "**: " + DiscordChat.escape(msg);
             boolean cancelled = false;
 
             // Filter or format the message if it's a FactionChat message

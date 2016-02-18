@@ -87,4 +87,16 @@ public class DiscordChat extends JavaPlugin {
     public static DiscordChat getInstance() {
         return instance;
     }
+
+    /**
+     * Escapes text with format to Discord
+     * @param str The string to escape
+     * @return The escaped string
+     */
+    public static String escape(String str) {
+        str = str.replace("*", "*****"); // Escape '*' (workaround)
+        str = str.replace("_", "_____"); // Escape '_' (yet another workaround)
+        str = str.replace("`", "'"); // Escape ` as it's parsed by Discord, like previous characters
+        return str;
+    }
 }
