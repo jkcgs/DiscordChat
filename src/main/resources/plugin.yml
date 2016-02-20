@@ -1,5 +1,5 @@
 name: DiscordChat
-version: 0.4.1-beta
+version: 0.4.2-SNAPSHOT
 author: Makzk <me@makzk.com>
 main: com.makzk.spigot.discordchat.DiscordChat
 softdepend: [FactionChat, Essentials]
