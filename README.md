@@ -1,6 +1,6 @@
 # DiscordChat
 
-This is a Spigot plugin that connects a Discord client with a Minecraft server, by showing the Discord messages sent to
+This is a Spigot/Bukkit plugin that connects a Discord client (vía [Discord4J](https://github.com/austinv11/Discord4J)) with a Minecraft server, by showing the Discord messages sent to
 a channel to the Minecraft chat, and vise versa.
 
 ## Installation
