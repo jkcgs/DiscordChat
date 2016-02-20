@@ -5,12 +5,12 @@ a channel to the Minecraft chat, and vise versa.
 
 ## Installation
 
-Put the plugin jar into the plugins server, and, before starting the server, create the configuration file with the
+Put the plugin's jar into the servers plugin folder, and, before starting the server, create the configuration file with the
 following example.
 
 ## Configuration
 
-The configuration goes in the plugins/DiscordChat folder, named config.yml.
+The configuration goes in the `plugins/DiscordChat` folder, named `config.yml`.
 
 ```yml
 discord-email: 'Your Discord email'
@@ -27,16 +27,16 @@ channels:
 ```
 
 Note: This plugins links to FactionChat plugin. If you decide to show the messages sent with this plugin, they will
-show as "[faction_name chat_mode] player_name: message"
+show as `[faction_name chat_mode] player_name: message`
 
 ## Commands and permission nodes
 
-* /dcreload (/dcr): Reloads the plugin configuration - discordbot.reload (default: op)
+* `/dcreload` (`/dcr`): Reloads the plugin configuration - `discordbot.reload` (default: op)
 
 ## Languages and translations
 
-You can switch between available languages. Actually, English (en) and Spanish.
-You can use custom languages, by putting a file like "lang_{lang}.yml" in plugin folder, and set the "{lang}" in
+You can switch between available languages. Actually, English (en) and Spanish (es).
+You can use custom languages, by putting a file like `lang_{lang}.yml` in plugin folder, and set the `{lang}` in
 the config. Use the file [lang.yml](src/main/resources/lang.yml) as base.
 
 ## License
