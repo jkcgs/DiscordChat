@@ -41,4 +41,4 @@ the config. Use the file [lang.yml](src/main/resources/lang.yml) as base.
 
 ## License
 
-This proyect is under the [MIT License](LICENSE)
+This project is under the [MIT License](LICENSE)
