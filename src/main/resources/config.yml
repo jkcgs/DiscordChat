@@ -1,11 +1,27 @@
 discord-email: ''
 discord-password: ''
 lang: en
+
+# GLOBAL SWITCHES: the parameters below can be also set for each channel,
+# and they will override the global ones.
+
+# Filters messages from FactionChat.
+# If false, the messages will be shown as "[Faction ChatType] player: msg"
 filter-factionchat: true
+
+# Filters the messages from players muted with Essentials
+# If false, the messages will be shown as "[Muted] player: msg"
 filter-essmute: true
 
+# Update topic to display online players on Minecraft server
+online-players-on-topic: true
+
+# If the topic is "Check this", the final topic would be "Check this - Online players: n"
+online-players-topic-separator: ' - '
+
+# Channels config
 channels:
-  channel-id:
-    tag: Tag # Tag to show on Minecraft chat
+  channel-id: # The channel ID is normally a long number
+    prefix: '[Tag] ' # Prefix to display messages on Minecraft chat
     discord-listen: true # Listen Discord -> Minecraft
     minecraft-listen: true # Listen Minecraft -> Discord

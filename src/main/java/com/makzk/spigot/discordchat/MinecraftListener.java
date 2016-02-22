@@ -62,49 +62,55 @@ class DiscordSendMessageTask implements Runnable {
         }
 
         // Process event and determine the message to be sent to the channels
+        MessageType type = MessageType.MESSAGE_MC_NORMAL;
         String finalMsg = "";
         if(event instanceof PlayerJoinEvent) {
             finalMsg = plugin.lang("discord-player-login", ((PlayerJoinEvent) event).getPlayer().getName());
+            updateChannelTopic();
         }
         if(event instanceof PlayerQuitEvent) {
             finalMsg = plugin.lang("discord-player-logout", ((PlayerQuitEvent) event).getPlayer().getName());
+            updateChannelTopic();
         }
 
         if(event instanceof AsyncPlayerChatEvent) {
             AsyncPlayerChatEvent e = (AsyncPlayerChatEvent) event;
-            boolean filterFaction = plugin.getConfig().getBoolean("filter-factionchat") && plugin.isFactionChatEnabled();
 
             String msg = e.getMessage();
             msg = "**" + DiscordChat.escape(e.getPlayer().getName()) + "**: " + DiscordChat.escape(msg);
-            boolean cancelled = false;
 
             // Filter or format the message if it's a FactionChat message
-            if(plugin.isFactionChatEnabled() && FactionChatAPI.isFactionChatMessage(e)) {
-                if(filterFaction) {
-                    cancelled = true;
-                } else {
-                    String fName = FactionChatAPI.getFactionName(e.getPlayer());
-                    String fChatMode = FactionChatAPI.getChatMode(e.getPlayer());
-                    msg = String.format("[%s %s] %s", fName, fChatMode, msg);
-                }
+            if(FactionChatAPI.isFactionChatMessage(e)) {
+                String fName = FactionChatAPI.getFactionName(e.getPlayer());
+                String fChatMode = FactionChatAPI.getChatMode(e.getPlayer());
+                msg = String.format("[%s %s] %s", fName, fChatMode, msg);
+                type = MessageType.MESSAGE_MC_FACTION;
             }
 
             // Handle muted players
-            if(!cancelled && plugin.isEssEnabled()) {
+            if(plugin.isEssEnabled()) {
                 Essentials ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
                 if(ess.getUser(e.getPlayer().getName()).isMuted()) {
-                    if(plugin.getConfig().getBoolean("filter-essmute")) {
-                        cancelled = true;
-                    } else {
-                        msg = "[" + plugin.lang("muted") + "] " + msg;
-                    }
+                    msg = "[" + plugin.lang("muted") + "] " + msg;
+                    type = MessageType.MESSAGE_MC_MUTED;
                 }
             }
 
-            if(!cancelled) finalMsg = msg;
+            finalMsg = msg;
         }
 
         // Finnally, broadcast message to Minecraft-listen enabled channels
-        if(!finalMsg.isEmpty()) wrapper.channelBroadcast(finalMsg, true);
+        if(!finalMsg.isEmpty()) wrapper.channelBroadcast(finalMsg, type);
+    }
+
+    public void updateChannelTopic() {
+        // TODO: Implement method
+        /**
+         * - Iterate over channels
+         * - Get topic separator from config
+         * - Retrieve current topic
+         * - If no topic found, all topic is changed
+         * - Append connected players to the topic
+         */
     }
 }

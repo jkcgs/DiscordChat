@@ -8,6 +8,8 @@ public class ChannelConfig {
     private String tag;
     private boolean discordListen = false;
     private boolean minecraftListen = false;
+    private Boolean filterFactionChat = false;
+    private Boolean filterEMuted = false;
 
     public ChannelConfig(String id, String tag, boolean discordListen, boolean minecraftListen) {
         this.id = id;
@@ -31,4 +33,21 @@ public class ChannelConfig {
     public boolean isDiscordListen() {
         return discordListen;
     }
+
+    public void setFilterEMuted(boolean filterEMuted) {
+        this.filterEMuted = filterEMuted;
+    }
+
+    public void setFilterFactionChat(boolean filterFactionChat) {
+        this.filterFactionChat = filterFactionChat;
+    }
+
+    public Boolean isFilterFactionChat() {
+        return filterFactionChat;
+    }
+
+    public Boolean isFilterEMuted() {
+        return filterEMuted;
+    }
+
 }

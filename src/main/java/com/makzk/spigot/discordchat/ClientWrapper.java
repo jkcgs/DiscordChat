@@ -6,11 +6,21 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.DiscordException;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.MissingPermissionsException;
+import sx.blah.discord.handle.impl.obj.Channel;
+import sx.blah.discord.handle.impl.obj.Message;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.util.HTTP429Exception;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
+enum MessageType {
+    MESSAGE_NORMAL,
+    MESSAGE_MC_NORMAL,
+    MESSAGE_MC_FACTION,
+    MESSAGE_MC_MUTED,
+}
 
 /**
  * Connects to Discord with the Discord4J client
@@ -84,7 +94,6 @@ public class ClientWrapper {
      * @param logout Determines if we have to close session, to avoid cancelling the logout async task
      */
     public void unload(boolean logout) {
-
         try {
             if(client != null) {
                 channelBroadcast(plugin.lang("plugin-disconnected", plugin.getName()));
@@ -121,6 +130,9 @@ public class ClientWrapper {
                     s.getBoolean("minecraft-listen")
             );
 
+            c.setFilterEMuted((Boolean)s.get("filter-factionchat"));
+            c.setFilterEMuted((Boolean)s.get("filter-factionchat"));
+
             channels.put(c.getId(), c);
         }
     }
@@ -128,19 +140,36 @@ public class ClientWrapper {
     /**
      * Broadcasts a message to the channels
      * @param msg The message to broadcast
-     * @param listenMinecraft Send message only to Minecraft-listen-enabled channels
+     * @param type The type of message, to filter it according to settings
      */
-    public void channelBroadcast(String msg, boolean listenMinecraft) {
+    public void channelBroadcast(String msg, MessageType type) {
         if(!connected) return;
+        boolean gFilterFaction = plugin.getConfig().getBoolean("filter-factionchat");
+        boolean gFilterMuted = plugin.getConfig().getBoolean("filter-essmute");
 
         for (Map.Entry<String, ChannelConfig> entry : channels.entrySet()) {
             ChannelConfig c = entry.getValue();
             IChannel chan = client.getChannelByID(c.getId());
             if(chan == null) continue;
 
-            // Broadcast only if channel listens to Minecraft messages, if the flag is enabled
-            if(listenMinecraft && !c.isMinecraftListen()) {
-                continue;
+            // Not listening to Minecraft messages
+            if(type != MessageType.MESSAGE_NORMAL && !c.isMinecraftListen()) {
+                return;
+            }
+
+            if(type == MessageType.MESSAGE_MC_FACTION) {
+                Object idfFaction = c.isFilterFactionChat();
+
+                if((idfFaction == null && gFilterFaction) || plugin.getConfig().getBoolean("filter-factionchat")) {
+                    continue;
+                }
+            }
+
+            if(type == MessageType.MESSAGE_MC_MUTED) {
+                Object idfMuted = c.isFilterEMuted();
+                if((idfMuted == null && gFilterMuted) || plugin.getConfig().getBoolean("filter-essmute")) {
+                    continue;
+                }
             }
 
             try {
@@ -150,14 +179,32 @@ public class ClientWrapper {
             } catch (HTTP429Exception | DiscordException e) {
                 plugin.getLogger().warning(plugin.lang("error-discord-broad", chan.getName(), e.getMessage()));
             } catch (Exception e) {
-                plugin.getLogger().severe(plugin.lang("error-discord-unknown",
-                        e.getClass().getName() + ": " + e.getMessage()));
+                plugin.getLogger().severe(plugin.lang("error-discord-msg-unknown",
+                        "ClientWrapper#channelBroadcast: " + e.getClass().getName() + ": " + e.getMessage()));
             }
         }
     }
 
+    public void updateChannelTopic(String channelID, String topic) {
+        if(!connected) return;
+
+        IChannel channel = client.getChannelByID(channelID);
+        if(channel == null) return;
+
+        try {
+            channel.edit(Optional.empty(), Optional.empty(), Optional.of(topic));
+        } catch (DiscordException | HTTP429Exception e) {
+            plugin.getLogger().warning(plugin.lang("error-discord-topic", channel.getName(), e.getMessage()));
+        } catch (MissingPermissionsException e) {
+            plugin.getLogger().warning(plugin.lang("error-discord-topic-perm", channel.getName()));
+        } catch (Exception e) {
+            plugin.getLogger().severe(plugin.lang("error-discord-unknown",
+                    "ClientWrapper#updateChannelTopic: " + e.getClass().getName() + ": " + e.getMessage()));
+        }
+    }
+
     public void channelBroadcast(String msg) {
-        channelBroadcast(msg, false);
+        channelBroadcast(msg, MessageType.MESSAGE_NORMAL);
     }
 
     public boolean isConnected() {
