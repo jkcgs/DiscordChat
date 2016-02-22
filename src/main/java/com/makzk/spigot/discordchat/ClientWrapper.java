@@ -130,8 +130,12 @@ public class ClientWrapper {
                     s.getBoolean("minecraft-listen")
             );
 
-            c.setFilterEMuted((Boolean)s.get("filter-factionchat"));
-            c.setFilterEMuted((Boolean)s.get("filter-factionchat"));
+            // If this flags are not set for the channel, they must remain null to use global value
+            Object fFaction = s.get("filter-factionchat");
+            Object fMuted = s.get("filter-factionchat");
+            c.setFilterEMuted(fFaction == null ? null : (Boolean)fFaction);
+            c.setFilterEMuted(fMuted == null ? null : (Boolean)fMuted);
+            c.setTopicSeparator(s.getString("online-players-topic-separator"));
 
             channels.put(c.getId(), c);
         }
@@ -182,24 +186,6 @@ public class ClientWrapper {
                 plugin.getLogger().severe(plugin.lang("error-discord-msg-unknown",
                         "ClientWrapper#channelBroadcast: " + e.getClass().getName() + ": " + e.getMessage()));
             }
-        }
-    }
-
-    public void updateChannelTopic(String channelID, String topic) {
-        if(!connected) return;
-
-        IChannel channel = client.getChannelByID(channelID);
-        if(channel == null) return;
-
-        try {
-            channel.edit(Optional.empty(), Optional.empty(), Optional.of(topic));
-        } catch (DiscordException | HTTP429Exception e) {
-            plugin.getLogger().warning(plugin.lang("error-discord-topic", channel.getName(), e.getMessage()));
-        } catch (MissingPermissionsException e) {
-            plugin.getLogger().warning(plugin.lang("error-discord-topic-perm", channel.getName()));
-        } catch (Exception e) {
-            plugin.getLogger().severe(plugin.lang("error-discord-unknown",
-                    "ClientWrapper#updateChannelTopic: " + e.getClass().getName() + ": " + e.getMessage()));
         }
     }
 

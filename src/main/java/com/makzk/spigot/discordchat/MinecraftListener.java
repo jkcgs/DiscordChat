@@ -9,6 +9,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import sx.blah.discord.api.DiscordException;
+import sx.blah.discord.api.MissingPermissionsException;
+import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.util.HTTP429Exception;
+
+import java.util.Map;
+import java.util.Optional;
 
 public class MinecraftListener implements Listener {
     private DiscordChat plugin = null;
@@ -103,14 +110,46 @@ class DiscordSendMessageTask implements Runnable {
         if(!finalMsg.isEmpty()) wrapper.channelBroadcast(finalMsg, type);
     }
 
+    /**
+     * Updates the channels (if they are setup to do it), adding the online players on the server.
+     */
     public void updateChannelTopic() {
-        // TODO: Implement method
-        /**
-         * - Iterate over channels
-         * - Get topic separator from config
-         * - Retrieve current topic
-         * - If no topic found, all topic is changed
-         * - Append connected players to the topic
-         */
+        String gSeparator = plugin.getConfig().getString("online-players-topic-separator");
+        Map<String, ChannelConfig> channels = wrapper.getChannels();
+        for(Map.Entry channelEntry: channels.entrySet()) {
+            ChannelConfig cc = (ChannelConfig)channelEntry.getValue();
+            IChannel channel = wrapper.getClient().getChannelByID(cc.getId());
+            if(channel == null) return;
+
+            String separator = cc.getTopicSeparator();
+            separator = separator == null ? gSeparator : separator;
+            String topic = channel.getTopic();
+            String newTopic;
+
+            // Determine string to append
+            int online = plugin.getServer().getOnlinePlayers().size();
+            String sepOnline = online + " players online";
+
+            // Determine new topic string
+            if(topic.isEmpty()) {
+                newTopic = sepOnline;
+            } else {
+                int sepPos = topic.indexOf(separator);
+                String prevTopic = sepPos != -1 ? topic.substring(0, sepPos) : topic;
+                newTopic = prevTopic + separator + sepOnline;
+            }
+
+            // Attempt to change the topic
+            try {
+                channel.edit(Optional.empty(), Optional.empty(), Optional.of(newTopic));
+            } catch (DiscordException | HTTP429Exception e) {
+                plugin.getLogger().warning(plugin.lang("error-discord-topic", channel.getName(), e.getMessage()));
+            } catch (MissingPermissionsException e) {
+                plugin.getLogger().warning(plugin.lang("error-discord-topic-perm", channel.getName()));
+            } catch (Exception e) {
+                plugin.getLogger().severe(plugin.lang("error-discord-unknown",
+                        "ClientWrapper#updateChannelTopic: " + e.getClass().getName() + ": " + e.getMessage()));
+            }
+        }
     }
 }

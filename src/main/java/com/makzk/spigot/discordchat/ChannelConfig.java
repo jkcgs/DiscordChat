@@ -6,6 +6,7 @@ package com.makzk.spigot.discordchat;
 public class ChannelConfig {
     private String id;
     private String tag;
+    private String topicSeparator;
     private boolean discordListen = false;
     private boolean minecraftListen = false;
     private Boolean filterFactionChat = false;
@@ -26,6 +27,14 @@ public class ChannelConfig {
         return tag;
     }
 
+    public String getTopicSeparator() {
+        return topicSeparator;
+    }
+
+    public void setTopicSeparator(String topicSeparator) {
+        this.topicSeparator = topicSeparator;
+    }
+
     public boolean isMinecraftListen() {
         return minecraftListen;
     }
@@ -34,11 +43,11 @@ public class ChannelConfig {
         return discordListen;
     }
 
-    public void setFilterEMuted(boolean filterEMuted) {
+    public void setFilterEMuted(Boolean filterEMuted) {
         this.filterEMuted = filterEMuted;
     }
 
-    public void setFilterFactionChat(boolean filterFactionChat) {
+    public void setFilterFactionChat(Boolean filterFactionChat) {
         this.filterFactionChat = filterFactionChat;
     }
 
