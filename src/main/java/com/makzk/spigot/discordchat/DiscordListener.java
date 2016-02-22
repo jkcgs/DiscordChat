@@ -35,7 +35,8 @@ public class DiscordListener {
             plugin.getLogger().warning(plugin.lang("error-ext-ip"));
         }
 
-        wrapper.channelBroadcast(plugin.lang("discord-connected-from", ip));
+        String desc = plugin.getName() + " " + plugin.getDescription().getVersion();
+        wrapper.channelBroadcast(plugin.lang("discord-connected-from", desc, ip));
     }
 
     @EventSubscriber
