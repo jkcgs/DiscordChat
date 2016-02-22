@@ -37,6 +37,8 @@ public class DiscordListener {
 
         String desc = plugin.getName() + " " + plugin.getDescription().getVersion();
         wrapper.channelBroadcast(plugin.lang("discord-connected-from", desc, ip));
+
+        wrapper.updateChannelsTopic();
     }
 
     @EventSubscriber
