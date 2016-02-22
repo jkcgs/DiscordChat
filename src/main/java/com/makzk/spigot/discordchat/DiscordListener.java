@@ -58,7 +58,7 @@ public class DiscordListener {
         }
 
         // Send message to Minecraft
-        String msgLog = String.format("[%s] %s: %s", cc.getTag(), m.getAuthor().getName(), m.getContent());
+        String msgLog = cc.getPrefix() + m.getAuthor().getName() + ": " + m.getContent();
         plugin.getServer().broadcastMessage(msgLog);
     }
 }

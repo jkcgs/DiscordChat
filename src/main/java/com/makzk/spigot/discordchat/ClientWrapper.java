@@ -125,7 +125,7 @@ public class ClientWrapper {
             ConfigurationSection s = (ConfigurationSection) entry.getValue();
             ChannelConfig c = new ChannelConfig(
                     entry.getKey(),
-                    s.getString("tag"),
+                    s.getString("prefix"),
                     s.getBoolean("discord-listen"),
                     s.getBoolean("minecraft-listen")
             );

@@ -5,16 +5,16 @@ package com.makzk.spigot.discordchat;
  */
 public class ChannelConfig {
     private String id;
-    private String tag;
+    private String prefix;
     private String topicSeparator;
     private boolean discordListen = false;
     private boolean minecraftListen = false;
     private Boolean filterFactionChat = false;
     private Boolean filterEMuted = false;
 
-    public ChannelConfig(String id, String tag, boolean discordListen, boolean minecraftListen) {
+    public ChannelConfig(String id, String prefix, boolean discordListen, boolean minecraftListen) {
         this.id = id;
-        this.tag = tag;
+        this.prefix = prefix;
         this.discordListen = discordListen;
         this.minecraftListen = minecraftListen;
     }
@@ -23,8 +23,8 @@ public class ChannelConfig {
         return id;
     }
 
-    public String getTag() {
-        return tag;
+    public String getPrefix() {
+        return prefix;
     }
 
     public String getTopicSeparator() {
