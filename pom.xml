@@ -101,15 +101,7 @@
             <groupId>sx.blah</groupId>
             <artifactId>Discord4J</artifactId>
             <version>2.2.7</version>
-            <classifier>shaded</classifier> <!-- Include this line if you want a shaded jar (all the Discord4J dependencies bundled into one jar)-->
-        </dependency>
-
-        <!--Spigot API-->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <classifier>shaded</classifier>
         </dependency>
 
         <!--Bukkit API-->
@@ -130,16 +122,12 @@
                     <groupId>org.spigotmc</groupId>
                     <artifactId>spigot-api</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
             </exclusions>
             <optional>true</optional>
-        </dependency>
-
-        <!-- Mute for Discord4J -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
-            <version>1.7.13</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
