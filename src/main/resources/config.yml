@@ -1,5 +1,4 @@
-discord-email: ''
-discord-password: ''
+discord-bot-token: ''
 lang: en
 
 # GLOBAL SWITCHES: the parameters below can be also set for each channel,

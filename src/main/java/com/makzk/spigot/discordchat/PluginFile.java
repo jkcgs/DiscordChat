@@ -15,9 +15,9 @@ import java.io.InputStreamReader;
  */
 public class PluginFile extends YamlConfiguration {
 
-    private File file;
-    private String defaults;
-    private JavaPlugin plugin;
+    private final File file;
+    private final String defaults;
+    private final JavaPlugin plugin;
 
     /**
      * Creates new PluginFile, without defaults
@@ -44,6 +44,7 @@ public class PluginFile extends YamlConfiguration {
     /**
      * Reload configuration
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void reload() {
 
         if (!file.exists()) {

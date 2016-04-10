@@ -2,12 +2,11 @@ package com.makzk.spigot.discordchat;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import sx.blah.discord.api.DiscordException;
 
 public class DiscordChat extends JavaPlugin {
     private static DiscordChat instance;
 
-    private FileConfiguration f = getConfig();
+    private final FileConfiguration f = getConfig();
     private PluginFile langConfig = null;
     private ClientWrapper wrapper = null;
 
@@ -31,7 +30,7 @@ public class DiscordChat extends JavaPlugin {
 
         try {
             wrapper = new ClientWrapper();
-        } catch (DiscordPluginException | DiscordException e) {
+        } catch (DiscordPluginException e) {
             getLogger().warning("WrapperInit: " + e.getMessage());
             unloadPlugin();
             return;
@@ -64,7 +63,8 @@ public class DiscordChat extends JavaPlugin {
         return langConfig.getString(path);
     }
 
-    public String lang(String path, String ...format) {
+    public String lang(String path, String... format) {
+        //noinspection ConfusingArgumentToVarargsMethod
         return String.format(lang(path), format);
     }
 
@@ -74,10 +74,6 @@ public class DiscordChat extends JavaPlugin {
 
     public ClientWrapper getWrapper() {
         return wrapper;
-    }
-
-    public boolean isFactionChatEnabled() {
-        return factionChatEnabled;
     }
 
     public boolean isEssEnabled() {

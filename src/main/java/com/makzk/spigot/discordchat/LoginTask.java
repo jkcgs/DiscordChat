@@ -11,7 +11,7 @@ class LoginTask implements Runnable {
     }
 
     public void run() {
-        if(!plugin.getWrapper().init(true) || !plugin.getWrapper().isConnected()) {
+        if(!plugin.getWrapper().init() || !plugin.getWrapper().isConnected()) {
             plugin.getLogger().severe(plugin.lang("error-discord-login", plugin.lang("error-no-further-info")));
         } else {
             plugin.getLogger().info(plugin.lang("discord-logged"));

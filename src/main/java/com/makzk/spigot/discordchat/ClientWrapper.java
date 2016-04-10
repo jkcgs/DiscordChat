@@ -3,17 +3,14 @@ package com.makzk.spigot.discordchat;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import sx.blah.discord.api.ClientBuilder;
-import sx.blah.discord.api.DiscordException;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.api.MissingPermissionsException;
-import sx.blah.discord.handle.impl.obj.Channel;
-import sx.blah.discord.handle.impl.obj.Message;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.HTTP429Exception;
+import sx.blah.discord.util.MissingPermissionsException;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 enum MessageType {
     MESSAGE_NORMAL,
@@ -33,11 +30,11 @@ public class ClientWrapper {
     private Map<String, ChannelConfig> channels = null;
     private boolean connected = false;
 
-    public ClientWrapper() throws DiscordPluginException, DiscordException {
+    public ClientWrapper() throws DiscordPluginException {
         plugin = DiscordChat.getInstance();
         FileConfiguration config = plugin.getConfig();
 
-        if(config.getString("discord-email").isEmpty() || config.getString("discord-password").isEmpty()) {
+        if(config.getString("discord-bot-token").isEmpty()) {
             throw new DiscordPluginException(plugin.lang("error-login-config"));
         }
 
@@ -48,8 +45,8 @@ public class ClientWrapper {
      * Initializes the system, by unloading first
      * @return boolean Depending on the success of the operation
      */
-    public boolean init(boolean logout) {
-        unload(logout);
+    public boolean init() {
+        unload(true);
 
         try {
             login();
@@ -76,8 +73,8 @@ public class ClientWrapper {
 
         try {
             // Create ClientBuilder, which returns the client to interact with the Discord uAPI
-            ClientBuilder builder = (new ClientBuilder()).withLogin(
-                    config.getString("discord-email"), config.getString("discord-password")
+            ClientBuilder builder = (new ClientBuilder()).withToken(
+                    config.getString("discord-bot-token")
             );
 
             client = builder.login();
@@ -219,7 +216,7 @@ public class ClientWrapper {
 
             // Attempt to change the topic
             try {
-                channel.edit(Optional.empty(), Optional.empty(), Optional.of(newTopic));
+                channel.changeTopic(newTopic);
             } catch (DiscordException | HTTP429Exception e) {
                 plugin.getLogger().warning(plugin.lang("error-discord-topic", channel.getName(), e.getMessage()));
             } catch (MissingPermissionsException e) {
@@ -237,10 +234,6 @@ public class ClientWrapper {
 
     public boolean isConnected() {
         return connected;
-    }
-
-    public Map<String, ChannelConfig> getChannels() {
-        return channels;
     }
 
     public ChannelConfig getChannel(String id) {

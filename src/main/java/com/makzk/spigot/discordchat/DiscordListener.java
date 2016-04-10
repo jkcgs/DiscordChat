@@ -1,6 +1,6 @@
 package com.makzk.spigot.discordchat;
 
-import sx.blah.discord.handle.EventSubscriber;
+import sx.blah.discord.api.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IMessage;
@@ -19,6 +19,7 @@ public class DiscordListener {
         this.wrapper = wrapper;
     }
 
+    @SuppressWarnings("UnusedParameters")
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) {
         plugin.getLogger().info(plugin.lang("ready"));

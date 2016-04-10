@@ -4,8 +4,8 @@ package com.makzk.spigot.discordchat;
  * Object that represents an Channel from the configuration
  */
 public class ChannelConfig {
-    private String id;
-    private String prefix;
+    private final String id;
+    private final String prefix;
     private String topicSeparator;
     private boolean discordListen = false;
     private boolean minecraftListen = false;
@@ -45,10 +45,6 @@ public class ChannelConfig {
 
     public void setFilterEMuted(Boolean filterEMuted) {
         this.filterEMuted = filterEMuted;
-    }
-
-    public void setFilterFactionChat(Boolean filterFactionChat) {
-        this.filterFactionChat = filterFactionChat;
     }
 
     public Boolean isFilterFactionChat() {

@@ -32,6 +32,6 @@ class DiscordChatReloadTask implements Runnable {
     public void run() {
         DiscordChat plugin = DiscordChat.getInstance();
         plugin.getLogger().info(plugin.lang("reloading"));
-        plugin.getWrapper().init(true);
+        plugin.getWrapper().init();
     }
 }

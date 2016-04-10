@@ -9,17 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import sx.blah.discord.api.DiscordException;
-import sx.blah.discord.api.MissingPermissionsException;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.util.HTTP429Exception;
-
-import java.util.Map;
-import java.util.Optional;
 
 public class MinecraftListener implements Listener {
     private DiscordChat plugin = null;
-    private ClientWrapper wrapper;
+    private final ClientWrapper wrapper;
 
     public MinecraftListener(DiscordChat plugin, ClientWrapper wrapper) {
         this.plugin = plugin;
